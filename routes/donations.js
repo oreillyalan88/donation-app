@@ -7,4 +7,21 @@ router.findAll = function(req, res) {
     res.json(donations);
 }
 
+function getByValue(arr, id) {
+
+    var result  = arr.filter(function(o){return o.id == id;} );
+
+    return result ? result[0] : null; // or undefined
+}
+
+router.findOne = function(req, res) {
+
+    var donation = getByValue(donations,req.params.id);
+
+    if(donation != null)
+        res.json(donation);
+    else
+        res.json({ message: 'Donation NOT Found!'});
+}
+
 module.exports = router;
